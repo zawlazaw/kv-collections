@@ -13,6 +13,9 @@ class DynamicByteArray(initialCapacity: Int) extends OutputStream {
   private[this] var buf = Array.ofDim[Byte](initialCapacity)
   private[this] var count: Int = 0
 
+  def size: Int = count
+  def capacity: Int = buf.length
+
   private def ensureCapacity(minCapacity: Int): Unit = {
     if (minCapacity > buf.length) {
       val oldCapacity = buf.length
@@ -20,6 +23,10 @@ class DynamicByteArray(initialCapacity: Int) extends OutputStream {
       buf = java.util.Arrays.copyOf(buf, newCapacity)
     }
   }
+
+  def +=(b: Int): this.type = { write(b); this }
+  def +=(b: Array[Byte]): this.type = { write(b); this }
+  def ++=(bs: TraversableOnce[Int]): this.type = { bs.foreach(write); this }
 
   def write(b: Int): Unit = {
     ensureCapacity(count + 1)
@@ -52,21 +59,46 @@ class DynamicByteArray(initialCapacity: Int) extends OutputStream {
     * Clears this buffer (and resets its capacity if <code>resetToInitialCapacity</code> is explicitly set to <code>true</code>).
     * @param resetToInitialCapacity whether to create a new buffer of initial size (<code>true</code>) or to re-use the current buffer (<code>false</code>, default) with its current capacity
     */
-  def reset(resetToInitialCapacity: Boolean = false): Unit = {
+  def clear(resetToInitialCapacity: Boolean = false): Unit = {
     count = 0
     if (resetToInitialCapacity && buf.length > initialCapacity)
       buf = Array.ofDim[Byte](initialCapacity)
   }
 
-  def size: Int = count
+  /**
+    * @return copy of the current buffer as an array
+    */
+  def toArray: Array[Byte] = toArray(false)
 
-  def capacity: Int = buf.length
+  /**
+    * @return the current buffer, either by reference if <code>returnBufferIfFull == true</code> and <code>size == capacity</code>, or otherwise as a copy
+    */
+  def toArray(returnBufferIfFull: Boolean): Array[Byte] = if (returnBufferIfFull && count == buf.length) buf else java.util.Arrays.copyOf(buf, count)
 
-  def toSeq(returnBufferIfFull: Boolean = false): Seq[Byte] = toArray(returnBufferIfFull).toSeq
+  /**
+    * @return copy of the current buffer as a sequence
+    */
+  def toSeq: Seq[Byte] = toArray(false).toSeq
 
-  def toArray(returnBufferIfFull: Boolean = false): Array[Byte] = if (returnBufferIfFull && count == buf.length) buf else java.util.Arrays.copyOf(buf, count)
+  /**
+    * @return copy of the current buffer as an indexed sequence
+    */
+  def toIndexedSeq: IndexedSeq[Byte] = toArray(false).toIndexedSeq
 
-  def toString(charset: Charset = StandardCharsets.UTF_8): String = new String(buf, 0, count, charset)
+  /**
+    * @return copy of the current buffer as a list
+    */
+  def toList: List[Byte] = toArray(false).toList
+
+  /**
+    * @return result of parsing this buffer as an UTF-8 string
+    */
+  override def toString: String = toString(StandardCharsets.UTF_8)
+
+  /**
+    * @return result of parsing this buffer as a string according to the given charset
+    */
+  def toString(charset: Charset): String = new String(buf, 0, count, charset)
 }
 
 object DynamicByteArray {
