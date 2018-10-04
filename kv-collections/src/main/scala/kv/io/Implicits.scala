@@ -45,5 +45,28 @@ object Implicits {
     implicit def implicitMutableSet[T](implicit binarizer: Binarizer[T]) = mutableSet[T]
     implicit def implicitMap[K,V](implicit keyBinarizer: Binarizer[K], valueBinarizer: Binarizer[V]) = map[K,V]
     implicit def implicitMutableMap[K,V](implicit keyBinarizer: Binarizer[K], valueBinarizer: Binarizer[V]) = mutableMap[K,V]
+    implicit def implicitTuple2[A,B](implicit a: Binarizer[A], b: Binarizer[B]) = tuple2[A,B]
+    implicit def implicitTuple3[A,B,C](implicit a: Binarizer[A], b: Binarizer[B], c: Binarizer[C]) = tuple3[A,B,C]
+    implicit def implicitTuple4[A,B,C,D](implicit a: Binarizer[A], b: Binarizer[B], c: Binarizer[C], d: Binarizer[D]) = tuple4[A,B,C,D]
+    implicit def implicitTuple5[A,B,C,D,E](implicit a: Binarizer[A], b: Binarizer[B], c: Binarizer[C], d: Binarizer[D],
+                                           e: Binarizer[E]) = tuple5[A,B,C,D,E]
+    implicit def implicitTuple6[A,B,C,D,E,F](implicit a: Binarizer[A], b: Binarizer[B], c: Binarizer[C], d: Binarizer[D],
+                                             e: Binarizer[E], f: Binarizer[F]) = tuple6[A,B,C,D,E,F]
+    implicit def implicitTuple7[A,B,C,D,E,F,G](implicit a: Binarizer[A], b: Binarizer[B], c: Binarizer[C], d: Binarizer[D],
+                                               e: Binarizer[E], f: Binarizer[F], g: Binarizer[G]) = tuple7[A,B,C,D,E,F,G]
+    implicit def implicitTuple8[A,B,C,D,E,F,G,H](implicit a: Binarizer[A], b: Binarizer[B], c: Binarizer[C], d: Binarizer[D],
+                                                 e: Binarizer[E], f: Binarizer[F], g: Binarizer[G], h: Binarizer[H]) = tuple8[A,B,C,D,E,F,G,H]
+    implicit def implicitTuple9[A,B,C,D,E,F,G,H,I](implicit a: Binarizer[A], b: Binarizer[B], c: Binarizer[C], d: Binarizer[D],
+                                                   e: Binarizer[E], f: Binarizer[F], g: Binarizer[G], h: Binarizer[H],
+                                                   i: Binarizer[I]) = tuple9[A,B,C,D,E,F,G,H,I]
+    implicit def implicitTuple10[A,B,C,D,E,F,G,H,I,J](implicit a: Binarizer[A], b: Binarizer[B], c: Binarizer[C], d: Binarizer[D],
+                                                      e: Binarizer[E], f: Binarizer[F], g: Binarizer[G], h: Binarizer[H],
+                                                      i: Binarizer[I], j: Binarizer[J]) = tuple10[A,B,C,D,E,F,G,H,I,J]
+    implicit def implicitTuple11[A,B,C,D,E,F,G,H,I,J,K](implicit a: Binarizer[A], b: Binarizer[B], c: Binarizer[C], d: Binarizer[D],
+                                                        e: Binarizer[E], f: Binarizer[F], g: Binarizer[G], h: Binarizer[H],
+                                                        i: Binarizer[I], j: Binarizer[J], k: Binarizer[K]) = tuple11[A,B,C,D,E,F,G,H,I,J,K]
+    implicit def implicitTuple12[A,B,C,D,E,F,G,H,I,J,K,L](implicit a: Binarizer[A], b: Binarizer[B], c: Binarizer[C], d: Binarizer[D],
+                                                          e: Binarizer[E], f: Binarizer[F], g: Binarizer[G], h: Binarizer[H],
+                                                          i: Binarizer[I], j: Binarizer[J], k: Binarizer[K], l: Binarizer[L]) = tuple12[A,B,C,D,E,F,G,H,I,J,K,L]
   }
 }

@@ -184,6 +184,41 @@ class RichInputOutputStreamTest extends FunSuite {
     }
   }
 
+  test("implicit tuple serialization & deserialization") {
+    import Implicits.default._
+
+    val t2 = (1,2)
+    val t3 = (1,2,3)
+    val t4 = (1,2,3,4)
+    val t5 = (1,2,3,4,5)
+    val t6 = (1,2,3,4,5,6)
+    val t7 = (1,2,3,4,5,6,7)
+    val t8 = (1,2,3,4,5,6,7,8)
+    val t9 = (1,2,3,4,5,6,7,8,9)
+    val t10 = (1,2,3,4,5,6,7,8,9,10)
+    val t11 = (1,2,3,4,5,6,7,8,9,10,11)
+    val t12 = (1,2,3,4,5,6,7,8,9,10,11,12)
+
+    assert(t2 == ByteArrayReader(ByteArrayBuilder.create(t2)).get[(Int,Int)])
+    assert(t3 == ByteArrayReader(ByteArrayBuilder.create(t3)).get[(Int,Int,Int)])
+    assert(t4 == ByteArrayReader(ByteArrayBuilder.create(t4)).get[(Int,Int,Int,Int)])
+    assert(t5 == ByteArrayReader(ByteArrayBuilder.create(t5)).get[(Int,Int,Int,Int,Int)])
+    assert(t6 == ByteArrayReader(ByteArrayBuilder.create(t6)).get[(Int,Int,Int,Int,Int,Int)])
+    assert(t7 == ByteArrayReader(ByteArrayBuilder.create(t7)).get[(Int,Int,Int,Int,Int,Int,Int)])
+    assert(t8 == ByteArrayReader(ByteArrayBuilder.create(t8)).get[(Int,Int,Int,Int,Int,Int,Int,Int)])
+    assert(t9 == ByteArrayReader(ByteArrayBuilder.create(t9)).get[(Int,Int,Int,Int,Int,Int,Int,Int,Int)])
+    assert(t10 == ByteArrayReader(ByteArrayBuilder.create(t10)).get[(Int,Int,Int,Int,Int,Int,Int,Int,Int,Int)])
+    assert(t11 == ByteArrayReader(ByteArrayBuilder.create(t11)).get[(Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int)])
+    assert(t12 == ByteArrayReader(ByteArrayBuilder.create(t12)).get[(Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int)])
+  }
+
+  test("fancy tuple serialization & deserialization") {
+    import Implicits.default._
+    
+    val t: (Int, Int, (String, Double), (((Int, Int), Int), Int), Int) = (1, 2, ("A", 2.34), (((1,2),3),4),5)
+    assert(t == ByteArrayReader(ByteArrayBuilder.create(t)).get[(Int, Int, (String, Double), (((Int, Int), Int), Int), Int)])
+  }
+
   /*
    * TESTING IMPLICITS
    */

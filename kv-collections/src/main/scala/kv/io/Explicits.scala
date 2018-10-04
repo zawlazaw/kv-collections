@@ -262,4 +262,143 @@ object Explicits {
       mutable.Map((1 to varlenIntNN.read(in)).map(_ => (keyBinarizer.read(in), valueBinarizer.read(in))):_*)
     }
   }
+
+  /*
+   * Tuples
+   */
+
+  def tuple2[A,B](implicit a: Binarizer[A], b: Binarizer[B]) = new StreamBinarizer[(A,B)] {
+    override def write(out: RichOutputStream, t: (A,B)): Unit = {
+      a.write(out, t._1); b.write(out, t._2)
+    }
+    override def read(in: RichInputStream): (A,B) = (
+      a.read(in), b.read(in)
+    )
+  }
+
+  def tuple3[A,B,C](implicit a: Binarizer[A], b: Binarizer[B], c: Binarizer[C]) = new StreamBinarizer[(A,B,C)] {
+    override def write(out: RichOutputStream, t: (A,B,C)): Unit = {
+      a.write(out, t._1); b.write(out, t._2); c.write(out, t._3)
+    }
+    override def read(in: RichInputStream): (A,B,C) = (
+      a.read(in), b.read(in), c.read(in)
+    )
+  }
+
+  def tuple4[A,B,C,D](implicit a: Binarizer[A], b: Binarizer[B], c: Binarizer[C], d: Binarizer[D]) = new StreamBinarizer[(A,B,C,D)] {
+    override def write(out: RichOutputStream, t: (A,B,C,D)): Unit = {
+      a.write(out, t._1); b.write(out, t._2); c.write(out, t._3); d.write(out, t._4)
+    }
+    override def read(in: RichInputStream): (A,B,C,D) = (
+      a.read(in), b.read(in), c.read(in), d.read(in)
+    )
+  }
+
+  def tuple5[A,B,C,D,E](implicit a: Binarizer[A], b: Binarizer[B], c: Binarizer[C], d: Binarizer[D],
+                        e: Binarizer[E]) = new StreamBinarizer[(A,B,C,D,E)] {
+    override def write(out: RichOutputStream, t: (A,B,C,D,E)): Unit = {
+      a.write(out, t._1); b.write(out, t._2); c.write(out, t._3); d.write(out, t._4)
+      e.write(out, t._5)
+    }
+    override def read(in: RichInputStream): (A,B,C,D,E) = (
+      a.read(in), b.read(in), c.read(in), d.read(in),
+      e.read(in)
+    )
+  }
+
+  def tuple6[A,B,C,D,E,F](implicit a: Binarizer[A], b: Binarizer[B], c: Binarizer[C], d: Binarizer[D],
+                          e: Binarizer[E], f: Binarizer[F]) = new StreamBinarizer[(A,B,C,D,E,F)] {
+    override def write(out: RichOutputStream, t: (A,B,C,D,E,F)): Unit = {
+      a.write(out, t._1); b.write(out, t._2); c.write(out, t._3); d.write(out, t._4)
+      e.write(out, t._5); f.write(out, t._6)
+    }
+    override def read(in: RichInputStream): (A,B,C,D,E,F) = (
+      a.read(in), b.read(in), c.read(in), d.read(in),
+      e.read(in), f.read(in)
+    )
+  }
+
+  def tuple7[A,B,C,D,E,F,G](implicit a: Binarizer[A], b: Binarizer[B], c: Binarizer[C], d: Binarizer[D],
+                            e: Binarizer[E], f: Binarizer[F], g: Binarizer[G]) = new StreamBinarizer[(A,B,C,D,E,F,G)] {
+    override def write(out: RichOutputStream, t: (A,B,C,D,E,F,G)): Unit = {
+      a.write(out, t._1); b.write(out, t._2); c.write(out, t._3); d.write(out, t._4)
+      e.write(out, t._5); f.write(out, t._6); g.write(out, t._7)
+    }
+    override def read(in: RichInputStream): (A,B,C,D,E,F,G) = (
+      a.read(in), b.read(in), c.read(in), d.read(in),
+      e.read(in), f.read(in), g.read(in)
+    )
+  }
+
+  def tuple8[A,B,C,D,E,F,G,H](implicit a: Binarizer[A], b: Binarizer[B], c: Binarizer[C], d: Binarizer[D],
+                              e: Binarizer[E], f: Binarizer[F], g: Binarizer[G], h: Binarizer[H]) = new StreamBinarizer[(A,B,C,D,E,F,G,H)] {
+    override def write(out: RichOutputStream, t: (A,B,C,D,E,F,G,H)): Unit = {
+      a.write(out, t._1); b.write(out, t._2); c.write(out, t._3); d.write(out, t._4)
+      e.write(out, t._5); f.write(out, t._6); g.write(out, t._7); h.write(out, t._8)
+    }
+    override def read(in: RichInputStream): (A,B,C,D,E,F,G,H) = (
+      a.read(in), b.read(in), c.read(in), d.read(in),
+      e.read(in), f.read(in), g.read(in), h.read(in)
+    )
+  }
+
+  def tuple9[A,B,C,D,E,F,G,H,I](implicit a: Binarizer[A], b: Binarizer[B], c: Binarizer[C], d: Binarizer[D],
+                                e: Binarizer[E], f: Binarizer[F], g: Binarizer[G], h: Binarizer[H],
+                                i: Binarizer[I]) = new StreamBinarizer[(A,B,C,D,E,F,G,H,I)] {
+    override def write(out: RichOutputStream, t: (A,B,C,D,E,F,G,H,I)): Unit = {
+      a.write(out, t._1); b.write(out, t._2); c.write(out, t._3); d.write(out, t._4)
+      e.write(out, t._5); f.write(out, t._6); g.write(out, t._7); h.write(out, t._8)
+      i.write(out, t._9)
+    }
+    override def read(in: RichInputStream): (A,B,C,D,E,F,G,H,I) = (
+      a.read(in), b.read(in), c.read(in), d.read(in),
+      e.read(in), f.read(in), g.read(in), h.read(in),
+      i.read(in)
+    )
+  }
+
+  def tuple10[A,B,C,D,E,F,G,H,I,J](implicit a: Binarizer[A], b: Binarizer[B], c: Binarizer[C], d: Binarizer[D],
+                                   e: Binarizer[E], f: Binarizer[F], g: Binarizer[G], h: Binarizer[H],
+                                   i: Binarizer[I], j: Binarizer[J]) = new StreamBinarizer[(A,B,C,D,E,F,G,H,I,J)] {
+    override def write(out: RichOutputStream, t: (A,B,C,D,E,F,G,H,I,J)): Unit = {
+      a.write(out, t._1); b.write(out, t._2); c.write(out, t._3); d.write(out, t._4)
+      e.write(out, t._5); f.write(out, t._6); g.write(out, t._7); h.write(out, t._8)
+      i.write(out, t._9); j.write(out, t._10)
+    }
+    override def read(in: RichInputStream): (A,B,C,D,E,F,G,H,I,J) = (
+      a.read(in), b.read(in), c.read(in), d.read(in),
+      e.read(in), f.read(in), g.read(in), h.read(in),
+      i.read(in), j.read(in)
+    )
+  }
+
+  def tuple11[A,B,C,D,E,F,G,H,I,J,K](implicit a: Binarizer[A], b: Binarizer[B], c: Binarizer[C], d: Binarizer[D],
+                                     e: Binarizer[E], f: Binarizer[F], g: Binarizer[G], h: Binarizer[H],
+                                     i: Binarizer[I], j: Binarizer[J], k: Binarizer[K]) = new StreamBinarizer[(A,B,C,D,E,F,G,H,I,J,K)] {
+    override def write(out: RichOutputStream, t: (A,B,C,D,E,F,G,H,I,J,K)): Unit = {
+      a.write(out, t._1); b.write(out, t._2); c.write(out, t._3); d.write(out, t._4)
+      e.write(out, t._5); f.write(out, t._6); g.write(out, t._7); h.write(out, t._8)
+      i.write(out, t._9); j.write(out, t._10); k.write(out, t._11)
+    }
+    override def read(in: RichInputStream): (A,B,C,D,E,F,G,H,I,J,K) = (
+      a.read(in), b.read(in), c.read(in), d.read(in),
+      e.read(in), f.read(in), g.read(in), h.read(in),
+      i.read(in), j.read(in), k.read(in)
+    )
+  }
+
+  def tuple12[A,B,C,D,E,F,G,H,I,J,K,L](implicit a: Binarizer[A], b: Binarizer[B], c: Binarizer[C], d: Binarizer[D],
+                                      e: Binarizer[E], f: Binarizer[F], g: Binarizer[G], h: Binarizer[H],
+                                      i: Binarizer[I], j: Binarizer[J], k: Binarizer[K], l: Binarizer[L]) = new StreamBinarizer[(A,B,C,D,E,F,G,H,I,J,K,L)] {
+    override def write(out: RichOutputStream, t: (A,B,C,D,E,F,G,H,I,J,K,L)): Unit = {
+      a.write(out, t._1); b.write(out, t._2); c.write(out, t._3); d.write(out, t._4)
+      e.write(out, t._5); f.write(out, t._6); g.write(out, t._7); h.write(out, t._8)
+      i.write(out, t._9); j.write(out, t._10); k.write(out, t._11); l.write(out, t._12)
+    }
+    override def read(in: RichInputStream): (A,B,C,D,E,F,G,H,I,J,K,L) = (
+      a.read(in), b.read(in), c.read(in), d.read(in),
+      e.read(in), f.read(in), g.read(in), h.read(in),
+      i.read(in), j.read(in), k.read(in), l.read(in)
+    )
+  }
 }
