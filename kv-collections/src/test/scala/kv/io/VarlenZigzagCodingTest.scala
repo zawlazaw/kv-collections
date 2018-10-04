@@ -1,4 +1,4 @@
-package kv.serialization
+package kv.io
 
 import org.scalatest.FunSuite
 import VarlenZigzagCoding._

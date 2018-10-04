@@ -36,5 +36,12 @@ lazy val `kv-collections` = (project in file("kv-collections")).
   settings(commonSettings: _*).
   settings(libraryDependencies ++= commonDependencies)
 
+lazy val `kv-collections-benchmarks` = (project in file("kv-collections-benchmarks")).
+  settings(version := "0.0.1-SNAPSHOT").
+  settings(commonSettings: _*).
+  settings(libraryDependencies ++= commonDependencies).
+  settings(libraryDependencies += "com.storm-enroute" %% "scalameter" % "0.10.1").
+  dependsOn(`kv-collections` % "compile->compile;test->test")
+
 lazy val root = (project in file("."))
-  .aggregate(`kv-collections`)
+  .aggregate(`kv-collections`, `kv-collections-benchmarks`)

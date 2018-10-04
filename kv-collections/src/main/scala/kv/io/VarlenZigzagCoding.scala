@@ -1,6 +1,6 @@
-package kv.serialization
+package kv.io
 
-import java.io.{InputStream, OutputStream}
+import java.io.OutputStream
 import java.util
 
 /**
@@ -55,7 +55,7 @@ object VarlenZigzagCoding {
     ulong2varlen(l, Some(out))
   }
 
-  def readVarlen(in: InputStream): Long = {
+  def readVarlen(in: StrictInputStream): Long = {
     val l = varlen2ulong(in)
     require(l >= 0, s"decoded value is negative ($l), although expected to be non-negative. Probably was encoded by varlen-zigzag?")
     l
@@ -63,7 +63,7 @@ object VarlenZigzagCoding {
 
   def writeVarlenZizag(v: Long, out: OutputStream): Array[Byte] = ulong2varlen(long2zigzag(v), Some(out))
 
-  def readVarlenZigzag(in: InputStream): Long = zigzag2long(varlen2ulong(in))
+  def readVarlenZigzag(in: StrictInputStream): Long = zigzag2long(varlen2ulong(in))
 
   /*
    * PRIVATE HELPERS
@@ -104,7 +104,7 @@ object VarlenZigzagCoding {
     throw new IllegalStateException("reached 'unreachable' state")
   }
 
-  private def varlen2ulong(reader: InputStream): Long = {
+  private def varlen2ulong(reader: StrictInputStream): Long = {
     var ul = 0L
     for (i <- 0 until 10) {
       val b = reader.read()
